@@ -6,7 +6,8 @@ exports.addpeople = async (req, res) => {
 
         if (error)
             return res.status(400).json({
-                message: 'failed to add event'
+                message: 'people adding error',
+                error
             })
 
         if (data) {

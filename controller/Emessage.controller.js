@@ -5,11 +5,20 @@ exports.addmessage = async (req, res) => {
 
     const message = addmessageInput(req.body);
 
+    /*
+    addmessageInput.({ Title: req.body.Title, Message: req.body.Message, date: req.body.date, time: req.body.time, id: req.body.id, _id: req.body._id }).exec((error, data) => {
+        if (error) return res.status(400).json({ error });
+        res.send(data);
+
+    })
+    */
+     
     await message.save((error, data) => {
 
         if (error)
             return res.status(400).json({
-                message: 'failed to add event'
+                message: 'failed to add message',
+                error:  error
             })
 
         if (data) {
