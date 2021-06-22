@@ -51,3 +51,22 @@ exports.UpdatetheShift = async (req, res) => {
 
     })
 }
+
+
+exports.getDetailsofPublish = async (req, res) => {
+  
+
+    ShiftInput.find({ EmailId: req.body.EmailId ,
+        start_date: {
+            $gte: req.body.fromdate,
+            $lt: req.body.todate
+          }                    
+    
+    }).exec((error, data) => {
+        if (error) return res.status(400).json({ error });
+        res.send(data); 
+
+    })
+
+
+}
