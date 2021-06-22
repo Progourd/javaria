@@ -18,7 +18,7 @@ exports.addmessage = async (req, res) => {
         if (error)
             return res.status(400).json({
                 message: 'failed to add message',
-                error:  error
+                 error
             })
 
         if (data) {
