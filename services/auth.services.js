@@ -55,3 +55,31 @@ exports.saveMessageData =  (body) =>{
       };
     });
 };
+
+
+exports.contactpeople =  (body) =>{
+  return contactus(body)
+  .save()
+  .then((message) => {
+    if (message) {
+      return {
+        status: 200,
+        message: "Message Added To JAVARIA ",
+        messageData:message,
+
+      };
+    } else {
+      return {
+        status: 201,
+        message: "could not add try again",
+      };
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    return {
+      status: 400,
+      message: "something went wrong",
+    };
+  });
+};
