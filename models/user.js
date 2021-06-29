@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    OtpForrest: {
+      type: String,
+     
+    },
   },
   { timestamps: true }
 );

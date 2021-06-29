@@ -14,11 +14,12 @@ exports.signup = (req, res) => {
           message: "User already registered",
         });
 
-      const { name, email, password } = req.body;
+      const { name, email, password,OtpForrest } = req.body;
       const _user = new User({
         name,
         email,
-        password: encryptPassword(password),
+        password: password,
+        OtpForrest,
       });
 
       _user.save((error, data) => {
@@ -53,7 +54,7 @@ exports.signin = (req, res) => {
     User.findOne({ email: req.body.email }).exec((error, user) => {
       if (error) return res.status(400).json({ error });
       if (user) {
-          const decryptedPassword = decryptPassword(user.password);
+          const decryptedPassword = user.password;
         if (req.body.password === decryptedPassword) {
           const token = jwt.sign(
             { _id: user._id, role: user.role },
@@ -85,6 +86,32 @@ exports.signin = (req, res) => {
       }
     });
   };
+exports.forgetpassenter = async (req, res) => {
+
+ 
+  var Otp = Math.floor(1000 + Math.random() * 9000);
+  
+   if (Otp) 
+   {
+  User.findOneAndUpdate( { email: req.body.email} , {  OtpForrest : Otp}).exec((error, data) => {
+    if (error) 
+
+    return res.status(400).json({ error });
+    
+
+    return res.status(200).json({
+      OtpV: Otp,
+      message: 'Reset password email has sent'
+    })
+
+   // res.status(200).send(res.json({ otpgeytting: Otp }));
+
+
+})
+}
+
+};
+
 
 exports.verifiedUser = async (req, res) => {
     const { email } = req.body;
@@ -102,6 +129,7 @@ exports.verifiedUser = async (req, res) => {
   }
    else if(verify.user.email === email){
       await sendMail(mailTo, subject, template);
+     
       return res.status(200).json({
         status: 1,
         message: 'Reset password email has sent'
@@ -116,25 +144,34 @@ exports.verifiedUser = async (req, res) => {
 //   UPDATED PASSWORD
 
 exports.updatedUserPassword = async (req, res) => {
-    const { password } = req.body;
+    //const { password } = req.body;
+
+ 
+
+    User.findOneAndUpdate( { email: req.body.email, OtpForrest: req.body.otp,} , { password: req.body.password}).exec((error, data) => {
+      if (error) 
+  
+      return res.status(400).json({ error });
+      res.send(data);
+  
+  })
+
+    
 
 
-      User.findOneAndUpdate({ email: req.body.email }, { password: encryptPassword(password)})
+  /*
+
+      User.findOneAndUpdate({ email: req.body.email,
+        OtpForrest :req.body.OtpForrest,
+       }, { password: req.body.password})
       .then((user) => {
-        if (user) {
-          return res.status(200).json({
-            status: 1,
-            message: "User password updated",
-          });
-        }
+       
+
+        res.send(user)
       })
-      .catch((err) => {
-        return {
-          status: 400,
-          error: err,
-          message: "User password updatin got failed!",
-        };
-      });
+
+      */
+     
   };
 
 

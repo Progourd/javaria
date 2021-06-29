@@ -37,7 +37,8 @@ transporter.use('compile', hbs(handlebarOptions));
 // Step 3
 exports.sendMail = (mailTo, subject, template) => {
   const mailOptions = {
-    from: 'jahangeeransari194@gmail.com',
+  //  from: 'jahangeeransari194@gmail.com',
+  from: 'pgsa7781@gmail.com',
     to: mailTo,
     subject,
     // text: mailMessage,
