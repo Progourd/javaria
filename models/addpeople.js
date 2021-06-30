@@ -28,5 +28,10 @@ const AddpeopleSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    _id:
+    {
+        type:String,
+        require: true
+    }
 })
 module.exports = mongoose.model('addpeople', AddpeopleSchema);

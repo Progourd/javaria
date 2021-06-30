@@ -5,11 +5,15 @@ exports.addpeople = async (req, res) => {
     const people = People(req.body);
     await people.save((error, data) => {
 
+        console.log("error",error)
+        console.log("data",data)
         if (error)
+        
             return res.status(400).json({
                 message: 'failed to add event'
             })
 
+           
         if (data) {
             res.status(201).json({
                 message: 'event has been created',
@@ -50,7 +54,7 @@ exports.findDetailsWithEmail = async(req, res) =>
 
 
 exports.DeletePeople = async (req, res) => {
-    People.findOneAndDelete({ _id : req.body.id}).exec((error, data) => {
+    People.findOneAndDelete({ _id : req.body._id}).exec((error, data) => {
         if (error) return res.status(400).json({ error });
         res.send(data);
        
@@ -64,7 +68,7 @@ exports.DeletePeople = async (req, res) => {
 exports.updateCustomer = (req, res) => {
      // Find customer and update it
     People.findByIdAndUpdate(
-                      req.body.id, 
+                      req.body._id, 
                       {
 
             email :req.body.email,
@@ -79,7 +83,7 @@ exports.updateCustomer = (req, res) => {
         .then(People => {
             if(!People) {
                 return res.status(404).send({
-                    message: "Error -> Can NOT update a people with id = " + req.body.id,
+                    message: "Error -> Can NOT update a people with id = " + req.body._id,
                     error: "Not Found!"
                 })
             }
