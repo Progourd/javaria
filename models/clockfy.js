@@ -27,6 +27,11 @@ const AddShiftsschema = mongoose.Schema({
         type:String,
         requried:true
     },
+    _id:{
+
+        type:String,
+        require:true
+    },
    
 },
 { timestamps: true }

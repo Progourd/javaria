@@ -40,7 +40,7 @@ exports.signup = (req, res) => {
   };
   //get clockfy
   exports.Getclockfy = (req, res)=> {
-    Clockfy.find({ EmailId: req.body.EmailId }).exec((error, data) => {
+    Clockfy.find({ email: req.body.email }).exec((error, data) => {
       if (error) return res.status(400).json({ error });
       res.send(data);
     })

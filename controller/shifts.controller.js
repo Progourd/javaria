@@ -93,7 +93,7 @@ exports.sendMailto = async (req, res) =>{
 }
 
 exports.Getclockfy = async (req, res) => {
-    Clockfy.find({ EmailId: req.body.EmailId }).exec((error, data) => {
+    Clockfy.find({ email: req.body.email }).exec((error, data) => {
         if (error) return res.status(400).json({ error });
         res.send(data);
 
@@ -105,7 +105,7 @@ exports.Getclockfy = async (req, res) => {
 
 exports.DeleteClockfy = async (req, res) => {
 
-    Clockfy.findOneAndDelete({ id: req.body.id }).exec((error, data) => {
+    Clockfy.findOneAndDelete({ _id: req.body._id }).exec((error, data) => {
         if (error) return res.status(400).json({ error });
         res.send("Your schedule is deleted successful");
 
